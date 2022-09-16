@@ -1,0 +1,13 @@
+name = "JlSensemakr"
+uuid = "d0a9aa98-a395-4522-b95d-eb86b2ee57ea"
+authors = ["Rodrigo Grijalba", "Alexander Quispe"]
+version = "0.1.0"
+
+[compat]
+julia = "1.8.1"
+
+[extras]
+Test = "8dfed614-e22c-5e08-85e1-65c5234f0b40"
+
+[targets]
+test = ["Test"]
