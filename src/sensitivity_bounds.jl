@@ -87,6 +87,7 @@ function ovb_partial_r2_bound(; model = nothing, treatment::Union{Nothing, Strin
                 r2yz_dx[r2yz_dx .>= 1] .= 1
             else
                 r2yz_dx = 1
+            end
         end
         if kd isa Real
             bound_label = label_maker(benchmark_covariates = benchmark_covariates[i], kd = kd, ky = ky)
