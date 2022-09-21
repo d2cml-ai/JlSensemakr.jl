@@ -1,5 +1,3 @@
-cd("C:/Users/Work/Documents/Work/d2cml-ai/JlSensemakr.jl");
-
 using Test
 using JlSensemakr
 using CSV
