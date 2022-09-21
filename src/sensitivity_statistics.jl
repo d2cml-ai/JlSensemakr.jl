@@ -15,10 +15,10 @@ function robustness_value(; model = nothing, covariates = nothing, t_statistic =
     end
 
     fq = q * abs.(t_statistic / sqrt(dof))
-    f_crit = abs(quantile(TDist(dof - 1)) / sqrt(dof - 1))
+    f_crit = abs(quantile(TDist(dof - 1), alpha / 2)) / sqrt(dof - 1)
     fqa = fq .- f_crit
 
-    rv = 0.5 * (sqrt(fqa .^ 4 + 4 * fqa .^ 2) - fqa .^ 2)
+    rv = 0.5 * (sqrt.(fqa .^ 4 + (4 * fqa .^ 2)) .- fqa .^ 2)
     rvx = (fq .^ 2 .- f_crit ^ 2) ./ (1 .+ fq .^ 2)
 
     rv_out = rv
@@ -141,7 +141,7 @@ function model_helper(model, covariates = nothing)
         "covariates" => used_variables,
         "estimate" => coef(model)[var_index],
         "se" => stderror(model)[var_index],
-        "t_statistics" => coeftable(model).cols[4][var_index],
+        "t_statistics" => coeftable(model).cols[3][var_index],
         "dof" => Int(dof_residual(model))
     )
     return model_info
@@ -170,7 +170,7 @@ end
 
 function check_alpha(alpha::Float64)
 
-    if !(0.0 < alpha < 1.0)
+    if !(0.0 <= alpha <= 1.0)
         throw(DomainError(alpha, "alpha must be in [0, 1]"))
     end
 end
@@ -205,7 +205,7 @@ function check_covariates(all_names, covariates)
         if 0 in isa.(covariates, String)
             throw(TypeError)
         end
-        not_found = covariates[(!isa).(covariates, Ref(all_names))]
+        not_found = covariates[(!in).(covariates, Ref(all_names))]
         if size(not_found, 1) > 0
             throw(ErrorException("Variables not found in model: " * join(not_found, ", ")))
         end
