@@ -3,9 +3,9 @@ function adjusted_estimate(r2dz_x, r2yz_dx; model = nothing, treatment = nothing
     r2dz_x, r2yz_dx, estimate, se, dof = param_check("adjusted_estimate", r2dz_x, r2yz_dx, model = model, treatment = treatment, estimate = estimate, se = se, dof = dof)
 
     if reduce
-        return sign(estimate) * (abs(estimate) - bias(r2dz_x, r2yz_dx, se = se, dof = dof))
+        return sign.(estimate) .* (abs.(estimate) .- bias(r2dz_x, r2yz_dx, se = se, dof = dof))
     else
-        return sign(estimate) * (abs(estimate) + bias(r2dz_x, r2yz_dx, se = se, dof = dof))
+        return sign.(estimate) .* (abs.(estimate) .+ bias(r2dz_x, r2yz_dx, se = se, dof = dof))
     end
 end
 
@@ -19,8 +19,8 @@ end
 function adjusted_t(r2dz_x, r2yz_dx; model = nothing, treatment = nothing, estimate = nothing, se = nothing, dof = nothing, reduce = true, h0::Real = 0)
 
     r2dz_x, r2yz_dx, estimate, se, dof = param_check("adjusted_t", r2dz_x, r2yz_dx, model = model, treatment = treatment, estimate = estimate, se = se, dof = dof)
-    new_estimate = adjusted_estimate(r2dz_x, r2yz_dx, estimate = estimate, se = se, dof = dof, reduce = reduce)
-    new_t = (new_estimate - h0) / adjusted_se(r2dz_x, r2yz_dx, se = se, dof = dof)
+    new_estimate = adjusted_estimate(r2dz_x, r2yz_dx, estimate = estimate[1], se = se, dof = dof, reduce = reduce)
+    new_t = (new_estimate .- h0) ./ adjusted_se(r2dz_x, r2yz_dx, se = se, dof = dof)
     return new_t
 end
 
@@ -55,7 +55,7 @@ end
 
 function bf(r2dz_x, r2yz_dx)
 
-    return sqrt.(r2yz_dx .* r2dz_x) ./ (1 .- r2dz_x)
+    return sqrt.((r2yz_dx .* r2dz_x) ./ (1 .- r2dz_x))
 end
 
 function param_check(function_name::String, r2dz_x, r2yz_dx; model = nothing, treatment::Union{String, Nothing} = nothing, estimate::Union{Nothing, Real} = nothing, se = nothing, 
@@ -65,13 +65,13 @@ function param_check(function_name::String, r2dz_x, r2yz_dx; model = nothing, tr
         if (isnothing(model) || isnothing(treatment)) && (isnothing(estimate) || isnothing(se) || isnothing(dof))
             throw(ArgumentError(join(["in addition to r2dz_x and r2yz_x, ", 
             function_name, 
-            " requires either a GLM LinearModel and a treatment variable or the current estimate, standard error, and degrees of freedom"])))
+            " requires either a GLM LinearModel and a treatment name or the current estimate, standard error, and degrees of freedom"])))
         end
     else
         if (isnothing(model) || isnothing(treatment)) && (isnothing(se) || isnothing(dof))
             throw(ArgumentError(join(["in addition to r2dz_x and r2yz_x, ", 
             function_name, 
-            " requires either a GLM LinearModel and a treatment variable or the current standard error and degrees of freedom"])))
+            " requires either a GLM LinearModel and a treatment name or the current standard error and degrees of freedom"])))
         end
     end
 
@@ -84,4 +84,5 @@ function param_check(function_name::String, r2dz_x, r2yz_dx; model = nothing, tr
     check_se(se)
     check_dof(dof)
     r2dz_x, r2yz_dx = check_r2(r2dz_x, r2yz_dx)
+    return r2dz_x, r2yz_dx, estimate, se, dof
 end

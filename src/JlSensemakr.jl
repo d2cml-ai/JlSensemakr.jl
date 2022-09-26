@@ -1,9 +1,11 @@
 module JlSensemakr
 
-export robustness_value, partial_r2, partial_f2, partial_f, group_partial_r2, sensitivity_stats
+export robustness_value, partial_r2, partial_f2, group_partial_r2, sensitivity_stats, adjusted_estimate, adjusted_se, adjusted_t, obv_bounds
 
-using Distributions, DataFrames, GLM
+using Distributions, DataFrames, GLM, StatsModels
 
 include("sensitivity_statistics.jl")
+include("bias_functions.jl")
+include("sensitivity_bounds.jl")
 
 end

@@ -22,9 +22,10 @@ function robustness_value(; model = nothing, covariates = nothing, t_statistic =
     rvx = (fq .^ 2 .- f_crit ^ 2) ./ (1 .+ fq .^ 2)
 
     rv_out = rv
+    
     rv_out[fqa .< 0] .= 0
     rv_out[((fqa .> 0) .&& (fq .> (1 / f_crit)))] = rvx[((fqa .> 0) .&& (fq .> (1 / f_crit)))]
-
+    
     return rv_out
 end
 
@@ -82,7 +83,7 @@ function group_partial_r2(; model = nothing, covariates = nothing, f_statistic =
         p = size(params, 1)
         f_statistic = (params' * inv(v)) * params / p
     end
-    return f_statistic * p / (f_statistic * p + dof)
+    return [f_statistic * p / (f_statistic * p + dof)]
 end
 
 function sensitivity_stats(; model = nothing, treatment::Union{String, Nothing} = nothing, estimate = nothing, se::Union{Real, Nothing} = nothing, 
@@ -175,8 +176,14 @@ function check_alpha(alpha::Float64)
     end
 end
 
-function check_se(se::Real)
+function check_se(se::Union{Real, Vector})
     
+    if se isa Vector
+        if length(se) > 1
+            throw(ArgumentError("se must contain a single number"))
+        end
+        se = se[1]
+    end
     if se < 0
         throw(DomainError(se, "se must be greater than 0"))
     end
