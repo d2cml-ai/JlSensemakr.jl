@@ -2,9 +2,7 @@
 
 using Test
 using JlSensemakr
-using CSV
-using DataFrames
-using GLM
+using CSV, DataFrames, GLM
 
 @testset "JlSensemakr.jl" begin
     # set up data
