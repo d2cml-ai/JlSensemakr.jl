@@ -7,6 +7,9 @@ function obv_bounds(model, treatment; benchmark_covariates = nothing, kd = 1, ky
     if bound != "partial_r2"
         throw(ErrorException("only partial r2 implemented as of now"))
     end
+    if benchmark_covariates isa String
+        benchmark_covariates = [benchmark_covariates]
+    end
     bounds = ovb_partial_r2_bound(model = model, treatment = treatment, benchmark_covariates = benchmark_covariates, kd = kd, ky = ky)
     
     if adjusted_estimates

@@ -42,7 +42,7 @@ function relative_bias(r2dz_x, r2yz_dx; model = nothing, treatment = nothing, es
     
     r2dz_x, r2yz_dx, estimate, se, dof = param_check("relative_bias", r2dz_x, r2yz_dx, model = model, treatment = treatment, estimate = estimate, se = se, dof = dof)
     t_statistic = abs(estimate / se)
-    f = partial_f(t_statistic, dof)
+    f = partial_f(t_statistic = t_statistic, dof =  dof)
     bf_val = bf(r2dz_x, r2yz_dx)
     q = bf_val ./ f
     return q

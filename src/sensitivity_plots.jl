@@ -1,5 +1,5 @@
-function ovb_contour_plot(estimate::Float64, se::Float64, dof::Int64; r2dz_x::Union{Array, Real, Nothing} = nothing, 
-    r2yz_dx::Union{Array, Real, Nothing} = nothing, sensitivity_of::String = "estimate", kd::Union{Array, Real} = 1, 
+function ovb_contour_plot(estimate::Float64, se::Float64, dof::Int64; r2dz_x::Union{Array{<:Real}, Real, Nothing} = nothing, 
+    r2yz_dx::Union{Array{<:Real}, Real, Nothing} = nothing, sensitivity_of::String = "estimate", kd::Union{Array, Real} = 1, 
     ky::Union{Array, Real, Nothing} = nothing, benchmark_covariates = nothing, bound_label = nothing, reduce::Bool = true, estimate_threshold = 0, t_threshold = 2, 
     lim = nothing, lim_y = nothing, col_contour = "black", col_thr_line = "red", label_text::Bool = true, label_bump_x = nothing, label_bump_y = nothing, 
     xlab = nothing, ylab = nothing, plot_margin_fraction = 0.05, round_dig = 3, n_levels = nothing)

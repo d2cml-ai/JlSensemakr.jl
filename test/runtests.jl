@@ -8,9 +8,9 @@ using CSV, DataFrames, GLM
     # set up data
     url = "https://raw.githubusercontent.com/nlapier2/PySensemakr/main/data/darfur.csv";
     darfur = DataFrame(CSV.File(download(url)));
-    formula = @formula(peacefactor ~ directlyharmed + age + farmer_dar + herder_dar + pastvoted + hhsize_darfur + female + village);
-    fitted_model = lm(formula, darfur);
-    atol = 0.000001
+    form = @formula(peacefactor ~ directlyharmed + age + farmer_dar + herder_dar + pastvoted + hhsize_darfur + female + village);
+    fitted_model = lm(form, darfur);
+    atol = 0.000001;
 
     #tests
     @test robustness_value(model = fitted_model, covariates = "directlyharmed")[1] ≈ 0.138776 atol = atol
