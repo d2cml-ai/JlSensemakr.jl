@@ -31,9 +31,6 @@ function ovb_contour_plot(estimate::Float64, se::Float64, dof::Int64; r2dz_x::Un
         if !isnothing(r2dz_x)
             bound_value = adjusted_estimate(r2dz_x, r2yz_dx, estimate = estimate, se = se, dof = dof, reduce = reduce)
         end
-        if length(bound_value) == 1
-            bound_value = bound_value[1]
-        end
     else
         for i in grid_values_x
             for j in grid_values_y
@@ -45,10 +42,11 @@ function ovb_contour_plot(estimate::Float64, se::Float64, dof::Int64; r2dz_x::Un
         if !isnothing(r2dz_x)
             bound_value = adjusted_t(r2dz_x, r2yz_dx, estimate = estimate, se = se, dof = dof, reduce = reduce, h0 = estimate_threshold)
         end
-        if length(bound_value) == 1
-            bound_value = bound_value[1]
-        end
     end
+    if (bound_value isa Array) && (length(bound_value) == 1)
+        bound_value = bound_value[1]
+    end
+
     z_axis = reshape(z_axis, length(grid_values_x), length(grid_values_y))
     fig, ax = subplots(1, 1, figsize = (6, 6))
     if !isnothing(n_levels)
@@ -164,6 +162,38 @@ function extract_from_model(model, treatment, benchmark_covariates, kd, ky, r2dz
     end
     return estimate, se, dof, bounds[:, "r2dz_x"], bounds[:, "r2yz_dx"]
     
+end
+
+function extract_from_sense_obj(sense_obj::Sensemakr)
+
+    treatment = sense_obj.treatment
+    estimate = sense_obj.estimate
+    q = sense_obj.q
+    reduce = sense_obj.reduce
+    alpha = sense_obj.alpha
+    se = sense_obj.se
+    dof = sense_obj.dof
+    benchmark_covariates = sense_obj.benchmark_covariates
+    kd = sense_obj.kd
+    ky = sense_obj.ky
+    if reduce
+        thr = estimate * (1 - q)
+    else
+        thr = estimate * (1 + q)
+    end
+    t_thr = abs(quantile(TDist(dof - 1), alpha / 2)) * sign(sense_obj.sensitivity_statistics["t_statistic"[1]])
+
+    if isnothing(sense_obj.bounds)
+        r2dz_x = nothing
+        r2yz_dx = nothing
+        bound_label = ""
+    else
+        r2dz_x = sense_obj.bound[:, "r2dz_x"]
+        r2yz_dx = sense_obj.bounds[:, "r2yz_dx"]
+        bound_label = sense_obj.bounds[:, "bound_label"]
+    end
+
+    return treatment, estimate, se, dof, r2dz_x, r2yz_dx, bound_label, reduce, thr, t_thr, benchmark_covariates, kd, ky
 end
 
 function add_bound_to_contour(; kd = 1, ky = nothing, r2dz_x, r2yz_dx, bound_value = nothing, bound_label = nothing, sensitivity_of = nothing, 

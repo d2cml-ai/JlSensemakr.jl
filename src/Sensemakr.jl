@@ -193,9 +193,7 @@ function plot(sense_obj::Sensemakr; r2dz_x::Union{Array, Real, Nothing} = nothin
     col_thr_line = "red", label_text::Bool = true, label_bump_x = nothing, label_bump_y = nothing, xlab = nothing, ylab = nothing, plot_margin_fraction = 0.05, 
     round_dig = 3, n_levels = nothing)
 
-    estimate = sense_obj.estimate
-    se = sense_obj.se
-    dof = sense_obj.dof
+    treatment, estimate, se, dof, r2dz_x, r2yz_dx, bound_label, reduce, estimate_threshold, t_threshold, benchmark_covariates, kd, ky = extract_from_sense_obj(sense_obj)
     
     ovb_contour_plot(estimate, se, dof, r2dz_x = r2dz_x, r2yz_dx = r2yz_dx, sensitivity_of = sensitivity_of, kd = kd, ky = ky, 
     benchmark_covariates = benchmark_covariates, bound_label = bound_label, reduce = reduce, estimate_threshold = estimate_threshold, t_threshold = t_threshold, 
