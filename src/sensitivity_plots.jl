@@ -47,7 +47,8 @@ function ovb_contour_plot(estimate::Float64, se::Float64, dof::Int64; r2dz_x::Un
         bound_value = bound_value[1]
     end
 
-    z_axis = reshape(z_axis, length(grid_values_x), length(grid_values_y))
+    # z_axis = reshape(z_axis, length(grid_values_x), length(grid_values_y))
+    z_axis = reshape(z_axis, length(grid_values_y), length(grid_values_x))
     fig, ax = subplots(1, 1, figsize = (6, 6))
     if !isnothing(n_levels)
         n_levels = n_levels - 1
