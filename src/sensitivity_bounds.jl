@@ -114,9 +114,9 @@ function label_maker(; benchmark_covariate, kd, ky, digits = 2)
         variable_text = join([" ", benchmark_covariate])
     end
     if ky == kd
-        multiplier_text = string(round(ky, sigdigits = digits + 1))
+        multiplier_text = string(round(ky, digits = digits))
     else
-        multiplier_text = join([string(round(kd, sigdigits = digits + 1)), "/", string(round(ky, sigdigits = digits + 1))])
+        multiplier_text = join([string(round(kd, digits = digits)), "/", string(round(ky, digits = digits))])
     end
     bound_label = join([multiplier_text, "x", variable_text])
     return bound_label

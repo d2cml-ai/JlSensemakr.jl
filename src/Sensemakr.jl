@@ -125,10 +125,10 @@ end =#
 function Base.summary(sense_obj::Sensemakr, digits::Int64 = 3)
 
     if sense_obj.reduce
-        h0 = round(sense_obj.estimate * (1 - sense_obj.q), sigdigits = digits)
+        h0 = round(sense_obj.estimate * (1 - sense_obj.q), digits = digits)
         direction = "reduce"
     else
-        h0 = round(sense_obj.estimate * (1 + sense_obj.q), sigdigits = digits)
+        h0 = round(sense_obj.estimate * (1 + sense_obj.q), digits = digits)
         direction = "increase"
     end
 
@@ -141,20 +141,20 @@ function Base.summary(sense_obj::Sensemakr, digits::Int64 = 3)
     println("-- The null hypothesis deemed problematic is H0:tau = ", h0, "\n")
 
     println("Unadjusted Estimates of \"", sense_obj.treatment, "\":")
-    println("   Coef. Estimate: ", round(sense_obj.estimate, sigdigits = digits))
-    println("   Standard Error: ", round(sense_obj.se, sigdigits = digits))
-    println("   t-value: ", round(sense_obj.sensitivity_statistics["t_statistic"][1], sigdigits = digits))
+    println("   Coef. Estimate: ", round(sense_obj.estimate, digits = digits))
+    println("   Standard Error: ", round(sense_obj.se, digits = digits))
+    println("   t-value: ", round(sense_obj.sensitivity_statistics["t_statistic"][1], digits = digits))
 
     println("Sensitivity Statistics:")
-    println("   Partial R2 of treatment with outcome: ", round.(sense_obj.sensitivity_statistics["r2yd_x"][1], sigdigits = digits))
-    println("   Robustness Value, q = ", sense_obj.q, ": ", round(sense_obj.sensitivity_statistics["rv_q"][1], sigdigits = digits))
-    println("   Robustness Value, q = ", sense_obj.q, " alpha = ", sense_obj.alpha, ": ", round(sense_obj.sensitivity_statistics["rv_qa"][1], sigdigits = digits), "\n")
+    println("   Partial R2 of treatment with outcome: ", round.(sense_obj.sensitivity_statistics["r2yd_x"][1], digits = digits))
+    println("   Robustness Value, q = ", sense_obj.q, ": ", round(sense_obj.sensitivity_statistics["rv_q"][1], digits = digits))
+    println("   Robustness Value, q = ", sense_obj.q, " alpha = ", sense_obj.alpha, ": ", round(sense_obj.sensitivity_statistics["rv_qa"][1], digits = digits), "\n")
 
     println("Verbal interpretation of sensitivity statistics:\n")
     println(
         "-- Partial R2 of the treatment with the outcome: an extreme confounder (orthogonal to the covariates) ", 
         "that explains 100% of the residual variance of the outcome, would need to explain at least ", 
-        round(100.0 * sense_obj.sensitivity_statistics["r2yd_x"][1], sigdigits = digits), " % of the residual variance of the treatment ", 
+        round(100.0 * sense_obj.sensitivity_statistics["r2yd_x"][1], digits = digits), " % of the residual variance of the treatment ", 
         "to fully account for the observed estimated effect.\n"
     )
 
@@ -162,17 +162,17 @@ function Base.summary(sense_obj::Sensemakr, digits::Int64 = 3)
         "-- Robustness Value, ", "q = ", sense_obj.q, ": unobserved confounders (orthogonal to the covariates) that ",
         "of both the treatment and the outcome are strong enough to bring the point estimate to ", h0,
         " (a bias of ", 100.0 * sense_obj.q, "% of the original estimate). Conversely, unobserved confounders that ",
-        "do not explain more than ", round(100.0 * sense_obj.sensitivity_statistics["rv_q"][1], sigdigits = digits), "% of the residual variance ",
+        "do not explain more than ", round(100.0 * sense_obj.sensitivity_statistics["rv_q"][1], digits = digits), "% of the residual variance ",
         "of both the treatment and the outcome are not strong enough to bring the point estimate to ", h0, ".\n"
     )
 
     println(
         "-- Robustness Value,", "q = ", sense_obj.q, ", ", "alpha = ", sense_obj.alpha, ": unobserved confounders (orthogonal ",
-        "to the covariates) that explain more than ", round(100.0 * sense_obj.sensitivity_statistics["rv_qa"][1], sigdigits = digits), "% of the residual ",
+        "to the covariates) that explain more than ", round(100.0 * sense_obj.sensitivity_statistics["rv_qa"][1], digits = digits), "% of the residual ",
         "variance of both the treatment and the outcome are strong enough to bring the estimate to a range where ",
         "it is no longer 'statistically different' from ", h0, " (a bias of ", 100.0 * sense_obj.q, "% of the original ",
         "estimate), at the significance level of alpha = ", sense_obj.alpha, ". ", "Conversely, unobserved confounders ",
-        "that do not explain more than", round(100.0 * sense_obj.sensitivity_statistics["rv_qa"][1], sigdigits = digits), "% of the residual variance",
+        "that do not explain more than", round(100.0 * sense_obj.sensitivity_statistics["rv_qa"][1], digits = digits), "% of the residual variance",
         "of both the treatment and the outcome are not strong enough to bring the estimate to a range where ",
         "it is no longer 'statistically different' from ", h0, ", at the significance level of alpha = ", sense_obj.alpha, ".\n"
     )
