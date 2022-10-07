@@ -188,7 +188,7 @@ function extract_from_sense_obj(sense_obj::Sensemakr)
         r2yz_dx = nothing
         bound_label = ""
     else
-        r2dz_x = sense_obj.bound[:, "r2dz_x"]
+        r2dz_x = sense_obj.bounds[:, "r2dz_x"]
         r2yz_dx = sense_obj.bounds[:, "r2yz_dx"]
         bound_label = sense_obj.bounds[:, "bound_label"]
     end
