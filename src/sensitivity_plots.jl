@@ -181,7 +181,7 @@ function extract_from_sense_obj(sense_obj::Sensemakr)
     else
         thr = estimate * (1 + q)
     end
-    t_thr = abs(quantile(TDist(dof - 1), alpha / 2)) * sign(sense_obj.sensitivity_statistics["t_statistic"[1]])
+    t_thr = abs(quantile(TDist(dof - 1), alpha / 2)) * sign(sense_obj.sensitivity_statistics["t_statistic"][1])
 
     if isnothing(sense_obj.bounds)
         r2dz_x = nothing
