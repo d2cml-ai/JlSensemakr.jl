@@ -110,7 +110,7 @@ function sensitivity_stats(; model = nothing, treatment::Union{String, Nothing} 
         h0 = estimate * (1 + q)
     end
     original_t = estimate ./ se
-    t_statistic = (estimate - h0) ./ estimate
+    t_statistic = (estimate - h0) ./ se
     r2yd_x = partial_r2(t_statistic = original_t, dof = dof)
     rv_q = robustness_value(t_statistic = original_t, dof = dof, q = q)
     rv_qa = robustness_value(t_statistic = original_t, dof = dof, q = q, alpha = alpha)
