@@ -67,7 +67,7 @@ function ovb_contour_plot(estimate::Float64, se::Float64, dof::Int64; r2dz_x::Un
     ax.clabel(CS, inline = 1, fontsize = 8, fmt = "%1.3g", colors = "gray")
 
     ax.scatter([0], [0], c = "k", marker = "^")
-    ax.annotate(join(["Unadjusted\n", string(round(plot_estimate, sigdigits = 4))]), (0.0 + label_bump_x, 0.0 + label_bump_y))
+    ax.annotate(join(["Unadjusted\n", string(round(plot_estimate, sigdigits = 3))]), (0.0 + label_bump_x, 0.0 + label_bump_y))
 
     if isnothing(xlab)
         xlab = L"Partial $R^2$ of confounder(s) with the treatment"
@@ -217,7 +217,7 @@ function add_bound_to_contour(; kd = 1, ky = nothing, r2dz_x, r2yz_dx, bound_val
                 bound_label = [bound_label]
             end
             if !isnothing(bound_label) && !isnothing(bound_value)
-                bound_value[i] = round(bound_value[i], sigdigits = round_dig + 1)
+                bound_value[i] = round(bound_value[i], sigdigits = round_dig)
                 label = join([string(bound_label[i]), "\n(", string(bound_value[i]), ")"])
             else
                 label = bound_label[i]
