@@ -1,13 +1,14 @@
-# cd("C:/Users/Work/Documents/Work/d2cml-ai/JlSensemakr.jl")
+# cd("/Documents/Work/d2cml-ai/JlSensemakr.jl")
 
 using Test
 using JlSensemakr
 using CSV, DataFrames, GLM
 
+const path = joinpath(dirname(@__FILE__), "..", "data", "darfur.csv");
+
 @testset "JlSensemakr.jl" begin
     # set up data
-    url = "https://raw.githubusercontent.com/nlapier2/PySensemakr/main/data/darfur.csv";
-    darfur = DataFrame(CSV.File(download(url)));
+    darfur = CSV.read(path, DataFrame);
     form = @formula(peacefactor ~ directlyharmed + age + farmer_dar + herder_dar + pastvoted + hhsize_darfur + female + village);
     fitted_model = lm(form, darfur);
     atol = 0.000001;
