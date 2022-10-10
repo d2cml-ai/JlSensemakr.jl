@@ -1,12 +1,12 @@
-# cd("/Documents/Work/d2cml-ai/JlSensemakr.jl")
+# cd("/Documents/Work/d2cml-ai/Sensemakr.jl")
 
 using Test
-using JlSensemakr
+using Sensemakr
 using CSV, DataFrames, GLM
 
 const path = joinpath(dirname(@__FILE__), "..", "data", "darfur.csv");
 
-@testset "JlSensemakr.jl" begin
+@testset "Sensemakr.jl" begin
     # set up data
     darfur = CSV.read(path, DataFrame);
     form = @formula(peacefactor ~ directlyharmed + age + farmer_dar + herder_dar + pastvoted + hhsize_darfur + female + village);

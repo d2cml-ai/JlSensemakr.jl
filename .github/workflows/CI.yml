@@ -60,6 +60,6 @@ jobs:
       - run: |
           julia --project=docs -e '
             using Documenter: DocMeta, doctest
-            using JlSensemakr
-            DocMeta.setdocmeta!(JlSensemakr, :DocTestSetup, :(using JlSensemakr); recursive=true)
-            doctest(JlSensemakr)'
+            using Sensemakr
+            DocMeta.setdocmeta!(Sensemakr, :DocTestSetup, :(using Sensemakr); recursive=true)
+            doctest(Sensemakr)'

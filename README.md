@@ -1,9 +1,9 @@
-# JlSensemakr
+# Sensemakr
 
-[![Stable](https://img.shields.io/badge/docs-stable-blue.svg)](https://d2cml-ai.github.io/JlSensemakr.jl/stable/)
-[![Dev](https://img.shields.io/badge/docs-dev-blue.svg)](https://d2cml-ai.github.io/JlSensemakr.jl/dev/)
-[![Build Status](https://github.com/d2cml-ai/JlSensemakr.jl/actions/workflows/CI.yml/badge.svg?branch=master)](https://github.com/d2cml-ai/JlSensemakr.jl/actions/workflows/CI.yml?query=branch%3Amaster)
-[![Coverage](https://codecov.io/gh/d2cml-ai/JlSensemakr.jl/branch/master/graph/badge.svg)](https://codecov.io/gh/d2cml-ai/JlSensemakr.jl)
+[![Stable](https://img.shields.io/badge/docs-stable-blue.svg)](https://d2cml-ai.github.io/Sensemakr.jl/stable/)
+[![Dev](https://img.shields.io/badge/docs-dev-blue.svg)](https://d2cml-ai.github.io/Sensemakr.jl/dev/)
+[![Build Status](https://github.com/d2cml-ai/Sensemakr.jl/actions/workflows/CI.yml/badge.svg?branch=master)](https://github.com/d2cml-ai/Sensemakr.jl/actions/workflows/CI.yml?query=branch%3Amaster)
+[![Coverage](https://codecov.io/gh/d2cml-ai/Sensemakr.jl/branch/master/graph/badge.svg)](https://codecov.io/gh/d2cml-ai/Sensemakr.jl)
 
 ## Installation
 
@@ -12,19 +12,19 @@ You will need Julia version 1.7.0 or higher to install this package.
 The latest version can be downloaded by running:
 
 ```julia
-import Pkg; Pkg.add(url = "https://github.com/d2cml-ai/JlSensemakr.jl)
+import Pkg; Pkg.add(url = "https://github.com/d2cml-ai/Sensemakr.jl)
 ```
 
 The latest stable version can be downloaded by running:
 
 ```julia
-import Pkg; Pkg.add(JlSensemakr)
+import Pkg; Pkg.add(Sensemakr)
 ```
 
 ## Example Usage
 
 ```julia
-using JlSensemakr
+using Sensemakr
 using CSV, DataFrames, GLM
 ```
 

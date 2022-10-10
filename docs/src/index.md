@@ -1,14 +1,14 @@
 ```@meta
-CurrentModule = JlSensemakr
+CurrentModule = Sensemakr
 ```
 
-# JlSensemakr
+# Sensemakr
 
-Documentation for [JlSensemakr](https://github.com/d2cml-ai/JlSensemakr.jl).
+Documentation for [Sensemakr](https://github.com/d2cml-ai/Sensemakr.jl).
 
 ```@index
 ```
 
 ```@autodocs
-Modules = [JlSensemakr]
+Modules = [Sensemakr]
 ```

@@ -1,16 +1,16 @@
-using JlSensemakr
+using Sensemakr
 using Documenter
 
-DocMeta.setdocmeta!(JlSensemakr, :DocTestSetup, :(using JlSensemakr); recursive=true)
+DocMeta.setdocmeta!(Sensemakr, :DocTestSetup, :(using Sensemakr); recursive=true)
 
 makedocs(;
-    modules=[JlSensemakr],
+    modules=[Sensemakr],
     authors="Rodrigo Grijalba, Alexander Quispe",
-    repo="https://github.com/d2cml-ai/JlSensemakr.jl/blob/{commit}{path}#{line}",
-    sitename="JlSensemakr.jl",
+    repo="https://github.com/d2cml-ai/Sensemakr.jl/blob/{commit}{path}#{line}",
+    sitename="Sensemakr.jl",
     format=Documenter.HTML(;
         prettyurls=get(ENV, "CI", "false") == "true",
-        canonical="https://d2cml-ai.github.io/JlSensemakr.jl",
+        canonical="https://d2cml-ai.github.io/Sensemakr.jl",
         edit_link="master",
         assets=String[],
     ),
@@ -20,6 +20,6 @@ makedocs(;
 )
 
 deploydocs(;
-    repo="github.com/d2cml-ai/JlSensemakr.jl",
+    repo="github.com/d2cml-ai/Sensemakr.jl",
     devbranch="master",
 )
